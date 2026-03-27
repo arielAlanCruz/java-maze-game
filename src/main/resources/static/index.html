@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador de Laberintos</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="game-container">
+      <div id="controls-panel">
+        <h1>🏃‍♂️ Simulador de Laberintos</h1>
+
+        <!-- Controles de Generación -->
+        <div class="control-group">
+          <h3>📐 Generar Laberinto</h3>
+          <label for="width">Ancho:</label>
+          <input
+            type="number"
+            id="width"
+            min="5"
+            max="50"
+            value="15"
+            step="2"
+          />
+
+          <label for="height">Alto:</label>
+          <input
+            type="number"
+            id="height"
+            min="5"
+            max="50"
+            value="15"
+            step="2"
+          />
+
+          <label for="algorithm">Algoritmo:</label>
+          <select id="algorithm">
+            <option value="PRIM">Prim</option>
+            <option value="KRUSKAL">Kruskal</option>
+          </select>
+
+          <button id="generate-btn" class="btn btn-primary">🎲 Generar</button>
+        </div>
+
+        <!-- Controles de Resolución -->
+        <div class="control-group">
+          <h3>🧭 Resolver Laberinto</h3>
+          <label for="solver">Algoritmo:</label>
+          <select id="solver">
+            <option value="BFS">BFS (Breadth-First)</option>
+            <option value="DFS">DFS (Depth-First)</option>
+            <option value="DIJKSTRA">Dijkstra</option>
+            <option value="GREEDY">Greedy</option>
+			<option value="BACKTRACKING">Backtracking</option>
+          </select>
+
+          <button id="solve-btn" class="btn btn-success" disabled>
+            ⚡ Resolver
+          </button>
+          <button id="clear-btn" class="btn btn-warning">🧹 Limpiar</button>
+        </div>
+
+        <!-- Comparar Algoritmos -->
+        <div class="control-group">
+          <h3>🏅 Comparar Algoritmos</h3>
+          <label for="metric-select">Métrica:</label>
+          <select id="metric-select">
+            <option value="PATH">Camino más corto</option>
+            <option value="TIME">Menor tiempo</option>
+            <option value="EXPLORED">Menos celdas exploradas</option>
+          </select>
+
+          <label for="sorter-select">Ordenar con:</label>
+          <select id="sorter-select">
+            <option value="MERGE">MergeSort</option>
+            <option value="QUICK">QuickSort</option>
+          </select>
+
+          <button id="compare-btn" class="btn btn-info" disabled>
+            📈 Comparar todos
+          </button>
+          <div id="ranking-container" style="margin-top: 10px; display: none">
+            <h4>Ranking</h4>
+            <table id="ranking-table">
+              <thead>
+                <tr>
+                  <th>Algoritmo</th>
+                  <th>Largo Camino</th>
+                  <th>Celdas Exploradas</th>
+                  <th>Tiempo (ms)</th>
+                  <th>Éxito</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Información -->
+        <div class="control-group">
+          <h3>📊 Estadísticas</h3>
+          <div id="stats">
+            <p><strong>Laberinto ID:</strong> <span id="maze-id">-</span></p>
+            <p><strong>Dimensiones:</strong> <span id="maze-size">-</span></p>
+            <p>
+              <strong>Algoritmo usado:</strong>
+              <span id="used-algorithm">-</span>
+            </p>
+            <p>
+              <strong>Celdas exploradas:</strong>
+              <span id="cells-explored">-</span>
+            </p>
+            <p><strong>Tiempo:</strong> <span id="execution-time">-</span>ms</p>
+            <p><strong>Estado:</strong> <span id="status">Listo</span></p>
+          </div>
+        </div>
+
+        <!-- Leyenda -->
+        <div class="control-group">
+          <h3>🎨 Leyenda</h3>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="color-box wall"></div>
+              <span>Muro</span>
+            </div>
+            <div class="legend-item">
+              <div class="color-box path"></div>
+              <span>Camino</span>
+            </div>
+            <div class="legend-item">
+              <div class="color-box start"></div>
+              <span>Inicio</span>
+            </div>
+            <div class="legend-item">
+              <div class="color-box end"></div>
+              <span>Salida</span>
+            </div>
+            <div class="legend-item">
+              <div class="color-box solution"></div>
+              <span>Solución</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="game-area">
+        <div id="phaser-game"></div>
+      </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="game.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

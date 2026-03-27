@@ -1,0 +1,31 @@
+# Compilados y binarios
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Carpetas de salida (Maven y Java)
+target/
+bin/
+out/
+
+# Archivos de configuración de IDEs (Eclipse, IntelliJ, NetBeans)
+.settings/
+.project
+.classpath
+.metadata/
+.idea/
+*.iml
+*.nbattrs
+*.nb-gradle
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
